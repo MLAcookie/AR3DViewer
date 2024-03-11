@@ -1,4 +1,5 @@
-﻿using OpenCvSharp;
+﻿using System.Runtime.CompilerServices;
+using OpenCvSharp;
 using OpenCvSharp.Aruco;
 
 namespace OpencvTest.Backends;
@@ -21,6 +22,7 @@ public class ArucoDetectedInfo
 
 public class CameraCalibrationInfo
 {
+    // Iphone13的标定数据
     public Mat cameraMatrix =
         new(
             3,
@@ -51,6 +53,30 @@ public class CameraCalibrationInfo
     public Mat tvecs = new(3, 1, MatType.CV_64F, new double[] { 0.0, 0.0, 0.0 });
 }
 
+public static class ArucoDraw
+{
+    public static Mat DrawAllMarkerInfo(this Mat image, ArucoDetectedInfo info)
+    {
+        CvAruco.DrawDetectedMarkers(image, info.corners, info.ids);
+        return image;
+    }
+    public static Mat DrawAllAxis(this Mat image, CameraCalibrationInfo info, float length = 0.05f)
+    {
+        if (info.rvecs.Rows != 0)
+        {
+            Cv2.DrawFrameAxes(
+                image,
+                info.cameraMatrix,
+                info.distCoeffs,
+                info.rvecs,
+                info.tvecs,
+                length
+            );
+        }
+        return image;
+    }
+}
+
 public class ArucoDetect
 {
     public static ArucoDetectedInfo DetectArucoMarkers(Mat image, int size, Dictionary dictionary)
@@ -71,21 +97,14 @@ public class ArucoDetect
         return detectedInfo;
     }
 
-    public static Mat DrawDetectMarkerInfo(Mat image, ArucoDetectedInfo info)
-    {
-        Mat ans = image.Clone();
-        CvAruco.DrawDetectedMarkers(ans, info.corners, info.ids);
-        return ans;
-    }
-
     public static CameraCalibrationInfo EstimatePoseSingleMarkers(
-        ArucoDetectedInfo arucoDetectedInfo,
+        ArucoDetectedInfo info,
         float markerLength
     )
     {
         CameraCalibrationInfo calibrationInfo = new();
         CvAruco.EstimatePoseSingleMarkers(
-            arucoDetectedInfo.corners,
+            info.corners,
             markerLength,
             calibrationInfo.cameraMatrix,
             calibrationInfo.distCoeffs,
@@ -94,14 +113,4 @@ public class ArucoDetect
         );
         return calibrationInfo;
     }
-    //CvAruco.EstimatePoseSingleMarkers(corners, 0.09f, cameraMatrix, distCoeffs, rvecs, tvecs);
-    //    if (rvecs.Rows != 0)
-    //    {
-    //        Cv2.DrawFrameAxes(image, cameraMatrix, distCoeffs, rvecs, tvecs, 0.05f);
-    //        Vec3d outRvec = rvecs.Get<Vec3d>(1);
-    //Vec3d outTvec = tvecs.Get<Vec3d>(1);
-    //Console.WriteLine("{0:f2} {1:f2} {2:f2}", outRvec.Item0, outRvec.Item1, outRvec.Item2);
-    //        Console.WriteLine("{0:f2} {1:f2} {2:f2}", outTvec.Item0, outTvec.Item1, outTvec.Item2);
-    //        Console.WriteLine();
-    //    }
 }

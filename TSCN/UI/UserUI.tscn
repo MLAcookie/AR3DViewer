@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cu2kf5b0tvt4v"]
 
-[ext_resource type="Script" path="res://Scripts/Camera.cs" id="1_s0tic"]
+[ext_resource type="Script" path="res://Scripts/CameraBehavior.cs" id="1_itfr6"]
 
 [node name="UserUI" type="Control"]
 layout_mode = 3
@@ -12,4 +12,4 @@ grow_vertical = 2
 
 [node name="Camera" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
-script = ExtResource("1_s0tic")
+script = ExtResource("1_itfr6")

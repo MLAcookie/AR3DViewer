@@ -35,9 +35,15 @@ public class Camera
         set { camera.FrameHeight = value; }
     }
 
-    public Camera(int index, VideoCaptureAPIs captureAPI = VideoCaptureAPIs.ANY)
+    public Camera(int index = 0, VideoCaptureAPIs captureAPI = VideoCaptureAPIs.ANY)
     {
         camera = new VideoCapture(index, captureAPI);
+    }
+
+    public Mat GetNextRaw()
+    {
+        camera.Read(frame);
+        return frame;
     }
 
     public ImageTexture GetImageTexture()
