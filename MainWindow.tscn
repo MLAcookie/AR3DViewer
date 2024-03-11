@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://mw6ijdfj38f"]
+
+[ext_resource type="PackedScene" uid="uid://cu2kf5b0tvt4v" path="res://UI/UserUI.tscn" id="1_tcytf"]
+[ext_resource type="PackedScene" uid="uid://dpfpkuty1x2r0" path="res://3DView.tscn" id="2_c0ofl"]
+
+[node name="MainWindow" type="Node2D"]
+
+[node name="UserUI" parent="." instance=ExtResource("1_tcytf")]
+scale = Vector2(0.5, 0.5)
+
+[node name="3dView" parent="." instance=ExtResource("2_c0ofl")]

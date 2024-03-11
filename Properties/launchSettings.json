@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Opencv Test": {
+      "commandName": "Project"
+    },
+    "Godot Profile": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\cookie\\scoop\\apps\\godot-mono\\current\\godot-mono.exe",
+      "commandLineArgs": "--path . --verbose",
+      "workingDirectory": ".",
+      "nativeDebugging": true
+    }
+  }
+}
