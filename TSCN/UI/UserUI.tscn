@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cu2kf5b0tvt4v"]
+[gd_scene load_steps=3 format=3 uid="uid://cu2kf5b0tvt4v"]
 
 [ext_resource type="Script" path="res://Scripts/CameraBehavior.cs" id="1_itfr6"]
+[ext_resource type="PackedScene" uid="uid://dpfpkuty1x2r0" path="res://TSCN/3DView.tscn" id="2_2p1q0"]
 
 [node name="UserUI" type="Control"]
 layout_mode = 3
@@ -10,6 +11,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Camera" type="Sprite2D" parent="."]
-position = Vector2(640, 360)
+[node name="Camera" type="Sprite2D" parent="." node_paths=PackedStringArray("node3D")]
+position = Vector2(240, 135)
+scale = Vector2(0.375, 0.375)
 script = ExtResource("1_itfr6")
+node3D = NodePath("3dView")
+
+[node name="3dView" parent="Camera" instance=ExtResource("2_2p1q0")]
