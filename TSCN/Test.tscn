@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://brf37duprqydv"]
+
+[ext_resource type="PackedScene" uid="uid://cb1iill44fc21" path="res://concrete_cat_statue_4k/concrete_cat_statue_4k.gltf" id="1_c30p5"]
+
+[node name="Test" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="concrete_cat_statue_4k" parent="Node3D" instance=ExtResource("1_c30p5")]
+
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.456997)

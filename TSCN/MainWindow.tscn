@@ -5,3 +5,7 @@
 [node name="MainWindow" type="Node2D"]
 
 [node name="UserUI" parent="." instance=ExtResource("1_nglpm")]
+offset_left = -8.0
+offset_top = -2.0
+offset_right = -8.0
+offset_bottom = -2.0

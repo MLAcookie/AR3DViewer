@@ -43,16 +43,19 @@ public partial class CameraBehavior : Sprite2D
             .ToImageTexture();
         TransPair tp = ArucoDetect.GetTransPair(arucoDetectedInfo, cameraCalibrationInfo);
 
-        camera3D.Position = new Vector3(
-            (float)tp.transform[0],
-            (float)tp.transform[1] + 1f,
-            (float)tp.transform[2]
-        );
-        camera3D.Rotation = new Vector3(
-            (float)tp.rotation[0],
-            (float)tp.rotation[1],
-            (float)tp.rotation[2]
-        );
+        if (tp is not null)
+        {
+            camera3D.Position = new Vector3(
+                (float)tp.transform[0],
+                (float)tp.transform[1] + 1f,
+                (float)tp.transform[2]
+            );
+            camera3D.Rotation = new Vector3(
+                (float)tp.rotation[0],
+                (float)tp.rotation[1],
+                (float)tp.rotation[2]
+            );
+        }
         Debug.WriteLine(camera3D.Position);
     }
 }

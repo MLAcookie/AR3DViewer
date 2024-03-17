@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://driaef0juh1c1"]
+
+[ext_resource type="Script" path="res://Scripts/CameraBehavior.cs" id="1_qhwss"]
+[ext_resource type="PackedScene" uid="uid://dpfpkuty1x2r0" path="res://TSCN/3DView.tscn" id="2_hdt5t"]
+
+[node name="CameraView" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="3dView" parent="." instance=ExtResource("2_hdt5t")]
+visible = false
+
+[node name="Camera" type="Sprite2D" parent="." node_paths=PackedStringArray("node3D")]
+position = Vector2(640, 360)
+script = ExtResource("1_qhwss")
+node3D = NodePath("../3dView")

@@ -5,7 +5,7 @@ using OpenCvSharp.Aruco;
 
 namespace OpencvTest.Backends;
 
-public struct TransPair
+public class TransPair
 {
     public Vec3d transform;
     public Vec3d rotation;
@@ -128,30 +128,22 @@ public class ArucoDetect
         return calibrationInfo;
     }
 
-    public static TransPair GetTransPair(
+    public static TransPair? GetTransPair(
         ArucoDetectedInfo arucoInfo,
         CameraCalibrationInfo calibrationInfo
     )
     {
         if (arucoInfo.corners.Length == 0)
         {
-            return new TransPair(
-                new Vec3d()
-                {
-                    Item0 = 0,
-                    Item1 = 0,
-                    Item2 = 0
-                },
-                new Vec3d()
-                {
-                    Item0 = 0,
-                    Item1 = 0,
-                    Item2 = 0
-                }
-            );
+            return null;
         }
         Mat objectPoints =
-            new(4, 3, MatType.CV_64F, new double[] { -.1, -.1, 0, .1, -.1, 0, .1, .1, 0, -.1, .1, 0 });
+            new(
+                4,
+                3,
+                MatType.CV_64F,
+                new double[] { -.1, -.1, 0, .1, -.1, 0, .1, .1, 0, -.1, .1, 0 }
+            );
         Mat imagePoints = PointHelper.GetLineOfMatrix(arucoInfo.corners, 0);
         Mat tr = new();
         Mat tt = new();

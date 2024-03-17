@@ -8,3 +8,4 @@
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.854232, -0.519892, 0, 0.519892, 0.854232, 0, 0, 2.19338)
