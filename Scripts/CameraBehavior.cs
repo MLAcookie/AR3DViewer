@@ -9,8 +9,7 @@ namespace OpenCVTest;
 public partial class CameraBehavior : Sprite2D
 {
     [Export]
-    public Node3D node3D;
-    Camera3D camera3D;
+    public Camera3D camera3D;
     Camera camera =
         new(0, VideoCaptureAPIs.DSHOW)
         {
@@ -20,10 +19,7 @@ public partial class CameraBehavior : Sprite2D
         };
 
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        camera3D = node3D.GetNode<Camera3D>("Camera3D");
-    }
+    public override void _Ready() { }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
@@ -47,7 +43,7 @@ public partial class CameraBehavior : Sprite2D
         {
             camera3D.Position = new Vector3(
                 (float)tp.transform[0],
-                (float)tp.transform[1] + 1f,
+                (float)tp.transform[1],
                 (float)tp.transform[2]
             );
             camera3D.Rotation = new Vector3(

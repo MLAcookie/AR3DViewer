@@ -1,21 +1,53 @@
-[gd_scene load_steps=2 format=3 uid="uid://cu2kf5b0tvt4v"]
+[gd_scene load_steps=4 format=3 uid="uid://cu2kf5b0tvt4v"]
 
 [ext_resource type="PackedScene" uid="uid://cb1iill44fc21" path="res://concrete_cat_statue_4k/concrete_cat_statue_4k.gltf" id="1_kduvd"]
+[ext_resource type="Script" path="res://Scripts/Node3D/MoveAsCamera.cs" id="2_fi3rn"]
+[ext_resource type="Script" path="res://Scripts/CameraBehavior.cs" id="3_7vuc4"]
 
 [node name="UserUI2" type="CanvasLayer"]
 
 [node name="concrete_cat_statue_4k" parent="." instance=ExtResource("1_kduvd")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.46046)
 
+[node name="Node3D" type="Node3D" parent="." node_paths=PackedStringArray("Camera")]
+script = ExtResource("2_fi3rn")
+Camera = NodePath("../Camera3D")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+radius = 0.1
+height = 0.3
+cone = true
+smooth_faces = false
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 320.0
+offset_bottom = 320.0
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 70.0
+offset_right = 320.0
+offset_bottom = 250.0
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+size = Vector2i(320, 180)
 render_target_update_mode = 4
 
-[node name="Camera3D2" type="Camera3D" parent="SubViewportContainer"]
-transform = Transform3D(0.030713, 0, -0.999528, 0, 1, 0, 0.999528, 0, 0.030713, -1.44255, 0, 0.210633)
+[node name="Camera3D2" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.030713, 0, -0.999528, 0, 1, 0, 0.999528, 0, 0.030713, -2.26988, 0, 0.0117293)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 360.0
+offset_bottom = 360.0
+scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Control" node_paths=PackedStringArray("camera3D")]
+position = Vector2(640, 360)
+script = ExtResource("3_7vuc4")
+camera3D = NodePath("../../Camera3D")
