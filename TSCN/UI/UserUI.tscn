@@ -1,20 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://cu2kf5b0tvt4v"]
+[gd_scene load_steps=5 format=3 uid="uid://cu2kf5b0tvt4v"]
 
 [ext_resource type="PackedScene" uid="uid://cb1iill44fc21" path="res://concrete_cat_statue_4k/concrete_cat_statue_4k.gltf" id="1_kduvd"]
 [ext_resource type="Script" path="res://Scripts/Node3D/MoveAsCamera.cs" id="2_fi3rn"]
 [ext_resource type="Script" path="res://Scripts/CameraBehavior.cs" id="3_7vuc4"]
 
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_wxj1l"]
+albedo_color = Color(1, 0, 0, 1)
+
 [node name="UserUI2" type="CanvasLayer"]
 
-[node name="concrete_cat_statue_4k" parent="." instance=ExtResource("1_kduvd")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.653156, 0.757223, 0, -0.757223, 0.653156, 0.38188, 4.01211, 3.43512)
+light_energy = 10.0
+light_indirect_energy = 10.0
+light_volumetric_fog_energy = 10.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.46046)
+[node name="concrete_cat_statue_4k" parent="." instance=ExtResource("1_kduvd")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -1.7527, 0, -1.96425)
 
 [node name="Node3D" type="Node3D" parent="." node_paths=PackedStringArray("Camera")]
 script = ExtResource("2_fi3rn")
-Camera = NodePath("../Camera3D")
+Camera = NodePath("../SubViewportContainer2/SubViewport/Camera3D")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -22,23 +28,19 @@ radius = 0.1
 height = 0.3
 cone = true
 smooth_faces = false
-
-[node name="Panel" type="Panel" parent="."]
-offset_right = 320.0
-offset_bottom = 320.0
+material = SubResource("ORMMaterial3D_wxj1l")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-offset_top = 70.0
-offset_right = 320.0
-offset_bottom = 250.0
+offset_right = 640.0
+offset_bottom = 360.0
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(320, 180)
+size = Vector2i(640, 360)
 render_target_update_mode = 4
 
 [node name="Camera3D2" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(0.030713, 0, -0.999528, 0, 1, 0, 0.999528, 0, 0.030713, -2.26988, 0, 0.0117293)
+transform = Transform3D(0.030713, 0, -0.999528, 0, 1, 0, 0.999528, 0, 0.030713, -3.10132, 0.60886, 0.0117293)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -50,4 +52,18 @@ scale = Vector2(0.5, 0.5)
 [node name="Sprite2D" type="Sprite2D" parent="Control" node_paths=PackedStringArray("camera3D")]
 position = Vector2(640, 360)
 script = ExtResource("3_7vuc4")
-camera3D = NodePath("../../Camera3D")
+camera3D = NodePath("../../SubViewportContainer2/SubViewport/Camera3D")
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -640.0
+offset_bottom = 720.0
+grow_horizontal = 0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
+size = Vector2i(640, 720)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer2/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0675607, 0.450326, 2.19461)

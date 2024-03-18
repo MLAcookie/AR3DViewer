@@ -42,14 +42,14 @@ public partial class CameraBehavior : Sprite2D
         if (tp is not null)
         {
             camera3D.Position = new Vector3(
-                (float)tp.transform[0],
                 (float)tp.transform[1],
-                (float)tp.transform[2]
+                (float)tp.transform[2],
+                (float)tp.transform[0]
             );
             camera3D.Rotation = new Vector3(
-                (float)tp.rotation[0],
                 (float)tp.rotation[1],
-                (float)tp.rotation[2]
+                (float)tp.rotation[2],
+                (float)tp.rotation[0]
             );
         }
         Debug.WriteLine(camera3D.Position);
